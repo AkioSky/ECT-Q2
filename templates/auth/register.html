@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block banner %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 bg-light pt-4 pb-4">
+                    <h1>Register</h1>
+                    <form action="" method="post" role="form">
+                        {% for field in form %}
+                            <div class="form-group">
+                                {{ field(class_='form-control') }}
+                            </div>
+                        {% endfor %}
+                        <input type="submit" class="btn btn-primary float-right" value="Register">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block notify_script %}
+    <script>
+    {% for field in form.errors %}
+        {% for error in form.errors[field] %}
+            console.log("{{ error }}");
+            $.notify("{{ error }}", "error", {
+                showDuration: 400,
+                hideDuration: 400,
+            });
+        {% endfor %}
+    {% endfor %}
+    </script>
+{% endblock %}

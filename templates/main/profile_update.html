@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block banner %}{% endblock %}
+
+{% block content %}
+<div class="section-margin">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 bg-light pt-4 pb-4">
+                <h1>Edit Profile</h1>
+                <form action="" method="post" role="form">
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field(class_='form-control') }}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" class="btn btn-outline-primary float-right" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

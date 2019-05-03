@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block banner %}{% endblock %}
+
+{% block content %}
+<div class="section-margin">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <img class="img-fluid rounded" src="{{ url_for('get_avatar') }}">
+            </div>
+            <div class="col-md-9">
+                <div class="float-right">
+                    <a class="btn btn-outline-primary btn-sm" href="{{ url_for('profile_update') }}">Edit Profile</a>
+                    <a class="btn btn-outline-success btn-sm" href="{{ url_for('upload_video') }}">Add Video</a>
+                </div>
+                <h1>
+                    {{ current_user.name }}
+                    <small class="text-muted">{{ current_user.username }}</small>
+                </h1>
+                <span>
+                    Used Space: {{ current_user.format_bytes(current_user.video_size())}}
+                </span>
+                <div id="description" class="ml-4 description">
+                        {{ current_user.description | safe }}
+                </div>
+            </div>
+        </div>
+        <div class="section-margin bg-light pt-4 pb-4 pl-4 pr-4">
+            <h2 class="text-center">Video List</h2>
+            <div class="row align-items-center">
+                {% for video in current_user.videos %}
+                    <div class="col-6 mb-2">
+                        <div class="card border">
+                            <div class="video-field">
+                                <video preload="auto" loop class="video-fluid" >
+                                    <source src="{{ url_for('get_video', filename=video.filename) }}"/>
+                                </video>
+                                <div class="buttons">
+                                    <a class="btn btn-outline-warning" href="{{ url_for('edit_video', video_id=video.id) }}">Edit</a>
+                                </div>
+                            </div>
+                            <div class="text-center description">
+                                {{ video.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function(){
+            $('.description').each(function (index, elem) {
+                $(elem).html($(elem).html().replace(/\n/g, "<br />"));
+            });
+
+            $('.video-field').mouseover(function(){
+                $(this).get(0).getElementsByClassName('video-fluid')[0].play();
+            }).mouseout(function(){
+                $(this).get(0).getElementsByClassName('video-fluid')[0].pause();
+            });
+        });
+    </script>
+{% endblock %}

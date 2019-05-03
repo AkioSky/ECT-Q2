@@ -1,0 +1,30 @@
+.section-margin {
+    margin-top: 30px !important;
+}
+
+.banner-slides {
+    display: none;
+    max-width: 468px;
+}
+
+.video-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.video-field {
+    position: relative;
+}
+
+.video-field .buttons {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.main-content {
+    min-height: 640px;
+}

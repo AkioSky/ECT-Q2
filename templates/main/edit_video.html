@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Video Detail {% endblock %}
+{% block banner %}{% endblock %}
+
+{% block content %}
+<div class="section-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <video preload="auto" loop class="video-fluid" >
+                    <source src="{{ url_for('get_video', filename=video.filename) }}"/>
+                </video>
+            </div>
+            <div class="col-6">
+                <div class="">
+                    <form action="" method="post" class="form" role="form">
+                        <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+                        <div class="form-group">
+                            <label class="form-control-label">Description</label>
+                            <textarea style="height: 200px;" class="form-control" name="description" id="description" required>{{ video.description }}</textarea>
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <input class="btn btn-secondary" id="submit" name="submit" type="submit" value="Update">
+                            <a class="btn btn-danger" href="{{ url_for('delete_video', video_id=video.id) }}">Delete</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('.video-fluid').mouseover(function(){
+            $('.video-fluid')[0].play();
+        }).mouseout(function(){
+            $('.video-fluid')[0].pause();
+        });
+    });
+</script>
+{% endblock %}

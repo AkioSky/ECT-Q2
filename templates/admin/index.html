@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block banner %}{% endblock %}
+
+{% block content %}
+    <div class="section-margin">
+        <div class="container">
+            <h1 class="text-center">User statistic</h1>
+            <div class="row">
+                <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+            </div>
+            <h1 class="text-center">Advertise analyse</h1>
+            <div class="row">
+                <canvas id="banner-chart" width="800" height="450"></canvas>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+        labels: {{ user_list | safe }},
+        datasets: [{
+            label: "Video",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: "rgb(255, 99, 132)",
+            fill: false,
+            borderWidth: 1,
+            data: {{ video_count }}
+        }, {
+            label: "Used Space (MB)",
+            backgroundColor: "rgba(255, 159, 64, 0.2)",
+            borderColor: "rgb(255, 159, 64)",
+            fill: false,
+            borderWidth: 1,
+            data: {{ used_space | safe }}
+        }]
+    },
+    options: {
+        title: {
+            display: false,
+            text: 'User Statistics'
+        }
+    }
+});
+
+new Chart(document.getElementById("banner-chart"), {
+    type: 'line',
+    data: {
+        labels: {{ b_labels | safe }},
+        datasets: [{
+            label: 'First Ads VIewed',
+            fill: false,
+            borderColor: 'rgb(255, 205, 86)',
+            backgroundColor:'rgba(255, 205, 86, 0.5)',
+            data: {{ banner_st['banner1']['count'] }},
+            borderWidth	: 2
+        },{
+            label: 'Second Ads VIewed',
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor:'rgba(75, 192, 192, 0.5)',
+            data: {{ banner_st['banner2']['count'] }},
+            borderWidth	: 2
+        },{
+            label: 'Third Ads VIewed',
+            fill: false,
+            borderColor: 'rgb(54, 162, 235)',
+            backgroundColor:'rgba(54, 162, 235, 0.5)',
+            data: {{ banner_st['banner3']['count'] }},
+            borderWidth	: 2
+        }]
+    },
+    options: {
+        title: {
+            display: false,
+            text: 'Advertise analyse'
+        },
+    }
+});
+</script>
+{% endblock %}
