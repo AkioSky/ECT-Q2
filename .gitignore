@@ -2,3 +2,4 @@ venv/
 uploads/
 .idea/
 __pycache__/
+app.db
